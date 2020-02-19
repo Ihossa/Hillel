@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson2</title>
+	<title>lesson3</title>
 </head>
 <body>
 	<script>
-		let userName = "Ihor Shymkov";
-		let userAge = 20;
-		let wellcome = "Hello " + userName + "! you are " + userAge + " years old and you are already old";
-		alert(wellcome);
+		"use strict"
+		let userName = prompt("Ваше имя", "Имя");
+		let userAge = prompt("Укажите ваш возраст");
+		let userDrink = confirm("Алкоголь употребляем?")
+		if(userDrink === true && userAge > 40){
+			alert("Не злоупотребляйте");
+		} else if(userDrink === true && userAge < 18){
+			alert("Ты что?! Маме расскажу!");
+		} else if(userDrink === true && userAge <= 40 && userAge >=18){
+			alert("Только водку с пивом не мешай...");
+		} else{
+			alert("Так держать!");
+		}
 	</script>
 </body>
 </html>
