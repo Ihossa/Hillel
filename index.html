@@ -7,18 +7,16 @@
 <body>
 	<script>
 		"use strict"
-		let userName = prompt("Ваше имя", "Имя");
-		let userAge = prompt("Укажите ваш возраст");
-		let userDrink = confirm("Алкоголь употребляем?")
-		if(userDrink === true && userAge > 40){
-			alert("Не злоупотребляйте");
-		} else if(userDrink === true && userAge < 18){
-			alert("Ты что?! Маме расскажу!");
-		} else if(userDrink === true && userAge <= 40 && userAge >=18){
-			alert("Только водку с пивом не мешай...");
-		} else{
-			alert("Так держать!");
+		let char = "";
+		let triangle = "";
+		let row = prompt("Сколько строк со звёздочками вы хотите увидеть?", "");
+		
+		for(let i = 1; i <=row; i++){
+			char += "*";
+			triangle += char + "\n";
 		}
+		console.log(triangle);
+		
 	</script>
 </body>
 </html>
