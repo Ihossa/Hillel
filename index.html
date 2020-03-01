@@ -7,16 +7,32 @@
 <body>
 	<script>
 		"use strict"
-		let char = "";
-		let triangle = "";
-		let row = prompt("Введите число, которое будет высотой вершины прямоугольного треугольника", "1");
-		
-		for(let i = 1; i <=row; i++){
-			char += "*";
-			triangle += char + "\n";
+
+		const PI = 3.14;
+
+		function giveSquareCircle(R) {
+			return PI * R**2;
 		}
-		console.log(triangle);
-		
+
+		function giveCircumference(D) {
+			return PI * D;
+		}
+
+		function giveArithmeticMean(a, b){
+			return (a+b)/2;
+		}
+
+		function culc(num1, num2, operand) {
+			if(operand === "/") return num1/num2;
+			if(operand === "+") return num1+num2;
+			if(operand === "-") return num1-num2;
+			if(operand === "*") return num1*num2;
+		}
+
+		console.log(giveSquareCircle(2));
+		console.log(giveCircumference(2));
+		console.log(giveArithmeticMean(2, 4));
+		console.log(culc(4, 5, "*"));		
 	</script>
 </body>
 </html>
