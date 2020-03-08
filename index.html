@@ -8,31 +8,99 @@
 	<script>
 		"use strict"
 
-		const PI = 3.14;
+		let students = [
+		{
+			name:"Ihor",
+			sex: "male",
+			yearBirdth: 1996
+		},
+		{
+			name:"Dan",
+			sex: "male",
+			yearBirdth: 1999
+		},
+		{
+			name:"Mari",
+			sex: "famale",
+			yearBirdth: 2000
+		},
+		{
+			name: "George",
+			sex: "male",
+			yearBirdth: 1997
+		},
+		{
+			name: "Yan",
+			sex: "male",
+			yearBirdth: 1998
+		}];
 
-		function giveSquareCircle(R) {
-			return PI * R**2;
+
+
+		function getMediumYear(obj) {
+			let sumAge = 0;
+			for (let i = 0; i < obj.length; i++){
+				sumAge += obj[i]["yearBirdth"];
+			}
+			return sumAge / obj.length;
+		};
+		function getMediumAge(obj) {
+			return 2020 - getMediumYear(obj);
 		}
 
-		function giveCircumference(D) {
-			return PI * D;
+		function checkMostGender(obj) {
+			let male = 0;
+			let famale = 0;
+			for (let i = 0; i < obj.length; i++){
+				let check = obj[i]["sex"];
+				check === "male" ? ++male : ++famale;
+			}
+			if(male > famale){
+				return "male"}
+				else  {return "famale"}
+				
 		}
 
-		function giveArithmeticMean(a, b){
-			return (a+b)/2;
-		}
+		console.log(getMediumAge(students));
+		console.log(checkMostGender(students));		
 
-		function culc(num1, num2, operand) {
-			if(operand === "/") return num1/num2;
-			if(operand === "+") return num1+num2;
-			if(operand === "-") return num1-num2;
-			if(operand === "*") return num1*num2;
-		}
 
-		console.log(giveSquareCircle(2));
-		console.log(giveCircumference(2));
-		console.log(giveArithmeticMean(2, 4));
-		console.log(culc(4, 5, "*"));		
+
+
+
+		let arr = [1,2,3,4,5,6];
+		let brr = clone(arr);
+		console.log(brr); // [1,2,3,4,5,6]
+		brr[0] = 42;
+		console.log(brr); // [42,2,3,4,5,6]
+		console.log(arr); // [1,2,3,4,5,6]
+
+		function clone(array){
+			let clone = [];
+			for (let key in array) {
+  				clone[key] = array[key];
+			}
+			return clone;
+
+		};
+
+
+
+
+
+
+		let ar = [1, 2, 3, 4, 5, 6];
+		function isEven(x) { return x % 2 === 0; } 
+		console.log(filter(ar, isEven)); // [2, 4, 6]
+
+		function filter(array, func) {
+			let arr2 = [];
+			for (let i = 0; i < array.length; i++) {
+ 				if (func(array[i])) arr2.push(array[i]);
+			}
+			return arr2;
+		};
+
 	</script>
 </body>
 </html>
