@@ -2,104 +2,79 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson4</title>
+	<title>lesson7</title>
 </head>
 <body>
 	<script>
 		"use strict"
 
-		let students = [
-		{
+		let student1 = {
 			name:"Ihor",
 			sex: "male",
 			yearBirdth: 1996
-		},
-		{
-			name:"Dan",
-			sex: "male",
-			yearBirdth: 1999
-		},
-		{
-			name:"Mari",
-			sex: "famale",
-			yearBirdth: 2000
-		},
-		{
-			name: "George",
-			sex: "male",
-			yearBirdth: 1997
-		},
-		{
-			name: "Yan",
-			sex: "male",
-			yearBirdth: 1998
-		}];
-
-
-
-		function getMediumYear(obj) {
-			let sumAge = 0;
-			for (let i = 0; i < obj.length; i++){
-				sumAge += obj[i]["yearBirdth"];
-			}
-			return sumAge / obj.length;
 		};
-		function getMediumAge(obj) {
-			return 2020 - getMediumYear(obj);
+
+		let student2 = {};
+
+		copy(student1, student2);
+
+		console.log(student1);
+		console.log(copy(student2, student1));
+		student1.name = "Max";
+		console.log(student1);
+
+		function copy(target, origin){
+			for(let key in origin){
+				target[key] = origin[key];
+			}
+			return target;
 		}
 
-		function checkMostGender(obj) {
-			let male = 0;
-			let famale = 0;
-			for (let i = 0; i < obj.length; i++){
-				let check = obj[i]["sex"];
-				check === "male" ? ++male : ++famale;
+
+
+
+		console.log(getNumberOfEven(123344));
+
+		function getNumberOfEven(n){
+			let check = 0;
+			let str = String(n);
+			
+			for(let i = 0; i < str.length; i++){
+				if(str[i] % 2 === 0){
+					check++;
+				}	
 			}
-			if(male > famale){
-				return "male"}
-				else  {return "famale"}
-				
+			return check;
 		}
 
-		console.log(getMediumAge(students));
-		console.log(checkMostGender(students));		
 
+		console.log(sumAll(4, 6, 8, 10, 10));
 
-
-
-
-		let arr = [1,2,3,4,5,6];
-		let brr = clone(arr);
-		console.log(brr); // [1,2,3,4,5,6]
-		brr[0] = 42;
-		console.log(brr); // [42,2,3,4,5,6]
-		console.log(arr); // [1,2,3,4,5,6]
-
-		function clone(array){
-			let clone = [];
-			for (let key in array) {
-  				clone[key] = array[key];
+		function sumAll() {
+			let summ = 0;
+			for(let i = 0; i < arguments.length; i++){
+				summ += arguments[i]
 			}
-			return clone;
-
-		};
-
+			return summ;
+		}
 
 
+		console.log(mathMinMax(4, 6, 8, 12, 10));
 
+		function mathMinMax() {
+			let minValue = arguments[0];
+			let maxValue = arguments[0];
+			
 
-
-		let ar = [1, 2, 3, 4, 5, 6];
-		function isEven(x) { return x % 2 === 0; } 
-		console.log(filter(ar, isEven)); // [2, 4, 6]
-
-		function filter(array, func) {
-			let arr2 = [];
-			for (let i = 0; i < array.length; i++) {
- 				if (func(array[i])) arr2.push(array[i]);
+			for(let i = 0; i < arguments.length; i++){
+				if(maxValue < arguments[i]) maxValue = arguments[i];
+				if(minValue > arguments[i]) minValue = arguments[i];
 			}
-			return arr2;
-		};
+
+			let arrMinMax = [maxValue, minValue];
+			return arrMinMax;
+			
+		}
 
 	</script>
 </body>
