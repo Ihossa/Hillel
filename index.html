@@ -2,79 +2,128 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson7</title>
+	<title>lesson8</title>
 </head>
 <body>
 	<script>
 		"use strict"
 
-		let student1 = {
-			name:"Ihor",
-			sex: "male",
-			yearBirdth: 1996
-		};
+		const arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
 
-		let student2 = {};
+		/*console.log(getSummEl(arr));
 
-		copy(student1, student2);
-
-		console.log(student1);
-		console.log(copy(student2, student1));
-		student1.name = "Max";
-		console.log(student1);
-
-		function copy(target, origin){
-			for(let key in origin){
-				target[key] = origin[key];
-			}
-			return target;
-		}
-
-
-
-
-		console.log(getNumberOfEven(123344));
-
-		function getNumberOfEven(n){
-			let check = 0;
-			let str = String(n);
-			
-			for(let i = 0; i < str.length; i++){
-				if(str[i] % 2 === 0){
-					check++;
-				}	
-			}
-			return check;
-		}
-
-
-		console.log(sumAll(4, 6, 8, 10, 10));
-
-		function sumAll() {
-			let summ = 0;
-			for(let i = 0; i < arguments.length; i++){
-				summ += arguments[i]
-			}
-			return summ;
-		}
-
-
-		console.log(mathMinMax(4, 6, 8, 12, 10));
-
-		function mathMinMax() {
-			let minValue = arguments[0];
-			let maxValue = arguments[0];
-			
-
-			for(let i = 0; i < arguments.length; i++){
-				if(maxValue < arguments[i]) maxValue = arguments[i];
-				if(minValue > arguments[i]) minValue = arguments[i];
+		function getSummEl(arr) {
+			let sum = 0;
+			for(let i = 0; i < arr.length; i++){
+				sum += arr[i];
 			}
 
-			let arrMinMax = [maxValue, minValue];
-			return arrMinMax;
-			
+			return sum;
+		}*/
+
+		let result = arr.reduce(function(summ, current) { return summ + current });
+
+		console.log(result);
+
+
+
+
+
+		const arr1 = arr.filter(function(el) {
+			return el < 0;
+		});
+
+		console.log(arr1);
+
+
+
+
+		const arr2 = arr.slice().sort( function(a, b){ return a - b } );
+
+		console.log(arr2);
+
+
+
+
+
+		const arr3 = arr.slice().reverse();
+
+		console.log(arr3);
+
+
+
+
+
+		const arr4 = arr.map(function(el) {
+			return el/2;
+		})
+
+		console.log(arr4);
+
+
+
+		const str = "12, 42, 63, 56, 122, 17, 117, 25, 645, 722, 964";
+
+		const brr = str.split(", ");
+
+		for(let i = 0; i < brr.length; i++){
+			brr[i] = Number(brr[i]);
 		}
+
+		console.log(brr);
+
+
+		const brr1 = brr.filter(function(el) {
+			return el % 2 === 0;
+		})
+
+		console.log(brr1);
+
+
+
+
+
+		const scheme = [
+			['name', 'Vasya'],
+			['age', 25],
+			['score', 95]
+		];
+
+    	function makeObjectFromScheme(arr){
+    		const obj = {};
+
+    		for(let i = 0; i < arr.length; i++){
+    			obj[scheme[i][0]] = scheme[i][1];
+    		}
+
+    		return obj;
+
+    	}
+
+    	console.log(makeObjectFromScheme(scheme));
+
+
+
+
+
+
+
+    	const obj = makeObjectFromScheme(scheme);
+
+    	function makeArrayFromObject(obj){
+    		const crr = [];
+
+    		for(let key in obj){	
+    		crr.push([key, obj[key]]);
+    		}
+
+			return crr;
+
+    	}    	
+
+    	console.log(makeArrayFromObject(obj));
+
+
 
 	</script>
 </body>
