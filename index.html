@@ -2,129 +2,59 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson8</title>
+	<title>lesson9</title>
 </head>
 <body>
 	<script>
 		"use strict"
 
-		const arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
-
-		/*console.log(getSummEl(arr));
-
-		function getSummEl(arr) {
-			let sum = 0;
-			for(let i = 0; i < arr.length; i++){
-				sum += arr[i];
-			}
-
-			return sum;
-		}*/
-
-		let result = arr.reduce(function(summ, current) { return summ + current });
-
-		console.log(result);
-
-
-
-
-
-		const arr1 = arr.filter(function(el) {
-			return el < 0;
-		});
-
-		console.log(arr1);
-
-
-
-
-		const arr2 = arr.slice().sort( function(a, b){ return a - b } );
-
-		console.log(arr2);
-
-
-
-
-
-		const arr3 = arr.slice().reverse();
-
-		console.log(arr3);
-
-
-
-
-
-		const arr4 = arr.map(function(el) {
-			return el/2;
-		})
-
-		console.log(arr4);
-
-
-
-		const str = "12, 42, 63, 56, 122, 17, 117, 25, 645, 722, 964";
-
-		const brr = str.split(", ");
-
-		for(let i = 0; i < brr.length; i++){
-			brr[i] = Number(brr[i]);
-		}
-
-		console.log(brr);
-
-
-		const brr1 = brr.filter(function(el) {
-			return el % 2 === 0;
-		})
-
-		console.log(brr1);
-
-
-
-
-
-		const scheme = [
-			['name', 'Vasya'],
-			['age', 25],
-			['score', 95]
+		let keys = [		 	
+		 ['value', 42, true, false, false],		
+		 ['value2', true, false, false, false],		
+		 ['value3', 'Hello', true, true, true]		
 		];
 
-    	function makeObjectFromScheme(arr){
-    		const obj = {};
+		
 
-    		for(let i = 0; i < arr.length; i++){
-    			obj[scheme[i][0]] = scheme[i][1];
-    		}
-
-    		return obj;
-
-    	}
-
-    	console.log(makeObjectFromScheme(scheme));
-
-
-
-
-
-
-
-    	const obj = makeObjectFromScheme(scheme);
-
-    	function makeArrayFromObject(obj){
-    		const crr = [];
-
-    		for(let key in obj){	
-    		crr.push([key, obj[key]]);
-    		}
-
-			return crr;
-
-    	}    	
-
-    	console.log(makeArrayFromObject(obj));
+		function createObject(array){
+			let obj = {};
+			for(let i = 0; i < array.length; i++){
+				Object.defineProperty(obj, array[i][0] , {
+				value: array[i][1],
+				enumerable: array[i][2],
+ 				writable: array[i][3],
+  				configurable: array[i][4], 				
+				})			
+			}
+		return obj;
+			
+		}
+		console.log(createObject(keys));
 
 
 
+let obj1 = {
+ value: 42,
+ value2: true
+}
+
+
+let obj2 = {
+ value: 42,
+ value2: true
+}
+
+
+console.log(compareObj(obj1, obj2)); // true
+
+function compareObj(obj1, obj2){
+	let strKeys1 = String(Object.entries(obj1));
+	let strKeys2 = String(Object.entries(obj2));
+
+	return strKeys1===strKeys2;
+
+}
 	</script>
+
 </body>
 </html>
