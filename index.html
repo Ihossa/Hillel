@@ -2,58 +2,59 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson9</title>
+	<title>lesson10</title>
 </head>
 <body>
+
 	<script>
 		"use strict"
+		let arrayList = [1,[1,3],2,[2,3,3],]
+//только на два уровня вложенности. как на больше?
+		const $list = document.body.innerHTML = '<ul id = "level1"></ul>';
+		function generateList(array) {
 
-		let keys = [		 	
-		 ['value', 42, true, false, false],		
-		 ['value2', true, false, false, false],		
-		 ['value3', 'Hello', true, true, true]		
-		];
+			for(let el of array) {
+				if(!(Array.isArray(el))){
+					document.querySelector('#level1').innerHTML += `<li>${el}</li>`;
+				}else {
+					for(let el2 of el)
+					document.querySelector('#level1').innerHTML += `<li><ul id = "level2"><li>${el2}</li></ul></li>`;
+				}
+			}
+		}  
+		generateList(arrayList);
 
 		
 
-		function createObject(array){
-			let obj = {};
-			for(let i = 0; i < array.length; i++){
-				Object.defineProperty(obj, array[i][0] , {
-				value: array[i][1],
-				enumerable: array[i][2],
- 				writable: array[i][3],
-  				configurable: array[i][4], 				
-				})			
-			}
-		return obj;
-			
-		}
-		console.log(createObject(keys));
 
 
+	function createTable(row, coll){
+		let count = 1;
+		let elemTable = "";
 
-let obj1 = {
- value: 42,
- value2: true
-}
+	    for(let i = 1; i <= row; i++){
 
+    		elemTable += "<tr>";
 
-let obj2 = {
- value: 42,
- value2: true
-}
+    		for(let j = 1; j <= coll; j++){
+    			elemTable += `<td>${count++}</td>`;
+    		}
 
+    		elemTable += "</tr>";
+    	}	
 
-console.log(compareObj(obj1, obj2)); // true
+    	return elemTable;
 
-function compareObj(obj1, obj2){
-	let strKeys1 = String(Object.entries(obj1));
-	let strKeys2 = String(Object.entries(obj2));
+	}
 
-	return strKeys1===strKeys2;
+    
 
-}
+    const $table = document.createElement('table');
+    $table.innerHTML = createTable(10, 10);
+ 	document.querySelector('ul').after($table);
+
+    
+
 	</script>
 
 </body>
