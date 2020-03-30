@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	
 	<title>lesson11</title>
 </head>
 <body>
@@ -39,15 +38,21 @@
 
 		const $div = document.querySelector('.box');
 
-		console.dir($div)
+		
 
 		function toggleClass(block, elClassName){
-			if(block.classList.contains(elClassName)){
-				block.classList.remove(elClassName);
-			} else {
-				block.classList.add(elClassName);
+			const elArray = block.className.split(' ');
+			
+			if(elArray.indexOf(elClassName) === -1){
+				elArray.push(elClassName);
+
+			}else{
+				elArray.pop(elClassName);
 			}
-		}
+
+			block.className = elArray.join(" ");
+		};
+
 
 		toggleClass($div, "elClassName");
 		alert($div.className);
