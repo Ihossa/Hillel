@@ -8,19 +8,25 @@
 
 	<script>
 		"use strict"
-		let arrayList = [1,[1,3],2,[2,3,3],]
-//только на два уровня вложенности. как на больше?
-		const $list = document.body.innerHTML = '<ul id = "level1"></ul>';
+		let arrayList = [1,[1,3],2,[2,3,3]]
+
+		
 		function generateList(array) {
+			let list =  `<ul>`;
 
 			for(let el of array) {
 				if(!(Array.isArray(el))){
-					document.querySelector('#level1').innerHTML += `<li>${el}</li>`;
+					list += `<li>${el}</li>`;
 				}else {
-					for(let el2 of el)
-					document.querySelector('#level1').innerHTML += `<li><ul id = "level2"><li>${el2}</li></ul></li>`;
+					list += `<li><ul>`
+					for(let el2 of el){
+						list += `<li>${el2}</li>`;
+					}
+					list += `</ul></li>`;
 				}
 			}
+			list +=  `</ul>`;
+			document.body.innerHTML = list;
 		}  
 		generateList(arrayList);
 
