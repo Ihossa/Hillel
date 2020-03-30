@@ -2,58 +2,58 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson10</title>
+	<title>lesson11</title>
 </head>
 <body>
 
+	<div class="container"></div>
+
+	<div class="box shadow radius"></div>
+
 	<script>
 		"use strict"
-		let arrayList = [1,[1,3],2,[2,3,3],]
-//только на два уровня вложенности. как на больше?
-		const $list = document.body.innerHTML = '<ul id = "level1"></ul>';
-		function generateList(array) {
 
-			for(let el of array) {
-				if(!(Array.isArray(el))){
-					document.querySelector('#level1').innerHTML += `<li>${el}</li>`;
-				}else {
-					for(let el2 of el)
-					document.querySelector('#level1').innerHTML += `<li><ul id = "level2"><li>${el2}</li></ul></li>`;
-				}
+		const $container = document.querySelector('.container');
+
+		function createSqare(){		
+			for(let i = 1; i < 6; i++){
+				$container.innerHTML +=  `<div class = "square" style = "border:1px solid black; width:1rem; height:1rem; margin:1rem;">${i}</div>`;	
+			}	
+		}	
+		createSqare();
+
+		const squares = document.querySelectorAll(".square");
+		squares.forEach(function(square){
+			square.addEventListener('click',(function(){
+				switch (square.style.backgroundColor){
+					case "": square.style.backgroundColor = "blue"; break;
+					case "blue": square.style.backgroundColor = "green"; break;
+					case "green": square.style.backgroundColor = "yellow"; break;
+					case "yellow": square.style.backgroundColor = "blue"; break;
+				};
+				$container.appendChild(square);
+			}));
+		});
+
+
+		const $div = document.querySelector('.box');
+
+		console.dir($div)
+
+		function toggleClass(block, elClassName){
+			if(block.classList.contains(elClassName)){
+				block.classList.remove(elClassName);
+			} else {
+				block.classList.add(elClassName);
 			}
-		}  
-		generateList(arrayList);
+		}
 
-		
-
-
-
-	function createTable(row, coll){
-		let count = 1;
-		let elemTable = "";
-
-	    for(let i = 1; i <= row; i++){
-
-    		elemTable += "<tr>";
-
-    		for(let j = 1; j <= coll; j++){
-    			elemTable += `<td>${count++}</td>`;
-    		}
-
-    		elemTable += "</tr>";
-    	}	
-
-    	return elemTable;
-
-	}
-
-    
-
-    const $table = document.createElement('table');
-    $table.innerHTML = createTable(10, 10);
- 	document.querySelector('ul').after($table);
-
-    
+		toggleClass($div, "elClassName");
+		alert($div.className);
+		toggleClass($div, "elClassName");
+		alert($div.className);
+		toggleClass($div, "elClassName");
+		alert($div.className);
 
 	</script>
 
