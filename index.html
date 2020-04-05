@@ -2,112 +2,143 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson12</title>
+	<title>lesson13</title>
 </head>
+<style>
+	table{
+		border:1px solid black;
+	}
+	td{
+		text-align: center;
+		padding: 1rem;
+		margin: 1rem;
+		border: 1px solid black;
+	}
+	input, select, button{
+		margin-bottom:1rem;
+	}
+</style>
 <body>
+	<div class="conventer">
+		<form name="conv">
+			<input type="radio" name="radio" id="buy"><label for="buy" checked>Buy</label>
+			<input type="radio" name="radio" id="sell"><label for="sell" checked>Sell</label>
+			<br>
+			<label for="from">from</label>
+			<select name="from">
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+				<option value="UAH">UAH</option>
+			</select>
+			<label for="to">to</label>
+				<select name="to">
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+				<option value="UAH">UAH</option>
+			</select>
+			<br>
+			Enter number: <input type="text" name="enterNum">
+			<br>
+			Result: <input type="text" name="result">	
+			<br>
+			<button type="submit" id="calc">calculate</button>
 
-	<div class="box" style="height: 100px; width: 100px; border:1px solid black; margin: 1rem; font-size: 2rem; text-align: center;">0
-	<button class="plus" type="submit">+</button>
-	<button class="minus" type="submit">-</button>
+		</form>
 	</div>
-	<div class="box" style="height: 100px; width: 100px; border:1px solid black; margin: 1rem; font-size: 2rem; text-align: center;">0
-	<button class="plus" type="submit">+</button>
-	<button class="minus" type="submit">-</button>
-	</div>
-	<div class="box" style="height: 100px; width: 100px; border:1px solid black; margin: 1rem; font-size: 2rem; text-align: center;">0
-	<button class="plus" type="submit">+</button>
-	<button class="minus" type="submit">-</button>
-	</div>
-	<div class="box" style="height: 100px; width: 100px; border:1px solid black; margin: 1rem; font-size: 2rem; text-align: center;">0
-	<button class="plus" type="submit">+</button>
-	<button class="minus" type="submit">-</button>
-	</div>
-	<div class="box" style="height: 100px; width: 100px; border:1px solid black; margin: 1rem; font-size: 2rem; text-align: center;">0
-	<button class="plus" type="submit">+</button>
-	<button class="minus" type="submit">-</button>
-	</div>
+
+	
+
 
 	<script>
 		"use strict"
-		const $boxes = document.querySelectorAll(".box");
+		const $table = document.createElement('table');
+		const alphavit = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','_','.'];
+		let iter = 0; 
 
-	//	$btnPlus.forEach(function(btn){
-	//		let number = Number(btn.parentElement.textContent[0]);
+		let elTable = '';
+		for(let i = 0; i < 7; i++){
+			elTable += '<tr>';
+			for(let j = 0; j < 4; j++){
+				elTable += `<td>${alphavit[iter++]}</td>`;
+			}
+			elTable += '</tr>';
+		}
 
-	//		btn.addEventListener('click', function(){
-	//			number = String(++number);
-	//			btn.parentElement.firstChild.textContent = number;
-	//			
+		console.log(elTable);
+		$table.innerHTML = elTable;
+		document.body.append($table);
 
-	//		})
-	//	});
 
-	//	$btnMinus.forEach(function(btn){
-	//		let number = Number(btn.parentElement.textContent[0]);
+		const $writeStr = document.createElement("div");
+		document.body.append($writeStr);
+		const $btnClear = document.createElement("button");
+		$btnClear.textContent = "Clear";
+		document.body.append($btnClear);
+		const $tableColls = document.querySelectorAll("td");
 
-	//		btn.addEventListener('click', function(){
-	//			number = String(--number);
-	//			btn.parentElement.firstChild.textContent = number;
-	//			
 
-	//		})
-	//	});
-
-		$boxes.forEach(function(box){
-			let number = box.textContent[0];
-			let btnPlus = box.firstElementChild;
-			let btnMinus = box.lastElementChild;
-			btnPlus.addEventListener('click', function(){
-				number = String(++number);
-				box.firstChild.textContent = number;	
+		$tableColls.forEach(function(col){
+			col.addEventListener("click", function(){
+				$writeStr.textContent += this.textContent;
+				console.log($writeStr);
 			})
-			btnMinus.addEventListener('click', function(){
-				number = String(--number);
-				box.firstChild.textContent = number;	
-			})
+		});
+		$btnClear.addEventListener("click", function(){
+			$writeStr.textContent = "";
+		})
+		//$writeStr.oninput = function() {
+		//	let $box = document.createElement('div');
+		//	$box.style.cssText = "width:10rem, height:10rem; border:1px solid black";
+		//	$box.textContent = $writeStr.textContent;
+		//	console.dir($box);
+		//	document.body.append = $box;
+//
+		//};
+		const $calc = document.querySelector("#calc");
+		const form = document.forms.conv;
+		let fromNum;
+		let toNum;
+		
+		
+		$calc.addEventListener('click', function(el) {
+			el.preventDefault();
+			let result = form.result.value;
+			let enterNum = form.enterNum.value;
+			if(form.radio[0].checked){
+				switch(form.from.value){
+					case 'USD': fromNum = 26; break;
+					case 'EUR': fromNum = 28; break;
+					case 'UAH': fromNum = 1; break;
+				}
+				switch(form.to.value){
+					case 'USD': toNum = 26; break;
+					case 'EUR': toNum = 28; break;
+					case 'UAH': toNum = 1; break;
+				}
+				//result = enterNum * (fromNum/toNum);
+				form.result.value= enterNum * (fromNum/toNum);
+				
+			}
+			if(form.radio[1].checked){
+				switch(form.from.value){
+					case 'USD': fromNum = 27; break;
+					case 'EUR': fromNum = 29; break;
+					case 'UAH': fromNum = 1; break;
+				}
+				switch(form.to.value){
+					case 'USD': toNum = 27; break;
+					case 'EUR': toNum = 29; break;
+					case 'UAH': toNum = 1; break;
+				}
+				//result = enterNum * (fromNum/toNum);
+				form.result.value= enterNum * (fromNum/toNum);
+				
+			}
+
 		})
 
-		const url = 'https://ithillel.ua/?utm_source=%D0%9A%D0%B0%D1%80%D0%BB%20%D1%83%20%D0%9A%D0%BB%D0%B0%D1%80%D1%8B%20%D1%83%D0%BA%D1%80%D0%B0%D0%BB%20%D0%BA%D0%BE%D1%80%D0%B0%D0%BB%D0%BB%D1%8B&utm_medium=,%20%D0%B0%20%D0%9A%D0%BB%D0%B0%D1%80%D0%B0%20%D1%83%20%D0%9A%D0%B0%D1%80%D0%BB%D0%B0%20%D1%83%D0%BA%D1%80%D0%B0%D0%BB%D0%B0%20%D0%BA%D0%BB%D0%B0%D1%80%D0%BD%D0%B5%D1%82.&utm_campaign=%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D0%B5%D0%B2%D0%B0%20%D0%9A%D0%BB%D0%B0%D1%80%D0%B0%20%D0%BA%D0%B0%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B0&utm_term=%D0%9A%D0%B0%D1%80%D0%BB%D0%B0%20%D1%81%D1%82%D1%80%D0%BE%D0%B3%D0%BE%20%D0%BA%D0%B0%D1%80%D0%B0%D0%BB%D0%B0&utm_content=%D0%B7%D0%B0%20%D0%BA%D1%80%D0%B0%D0%B6%D1%83%20%D0%BA%D0%BE%D1%80%D0%B0%D0%BB%D0%BB%D0%BE%D0%B2';
-
-
-		function makeObjFromQuery(url){
-			let obj = {};
-			let firstChar = url.indexOf('?')+1;
-			let str = url.slice(firstChar);
-			let array = str.split("&");
-
-			array.forEach(function(el){
-				let ArrKeyValue = el.split("=");
-				obj[ArrKeyValue[0]] = decodeURIComponent(ArrKeyValue[1]);
-			})
-			
-			return obj;
-		}
-
-		makeObjFromQuery(url);
-		printData(makeObjFromQuery(url));
 		
 		
-		function printData(obj){
-
-			let table = "";
-			console.log(obj);
-			for(let key in obj){
-				console.log(obj[key]);
-				table += "<tr>";
-				table += `<td style='border:1px solid black'>${key}</td>`;
-				table += `<td style='border:1px solid black'>${obj[key]}</td>`;
-				table += "</tr>";
-			}
-			
-			
-			
-			let $table = document.createElement('table');
-			$table.innerHTML = table;
-			$table.style.border = "1px solid black"
-			document.body.append($table);
-			
-		}
 
 	</script>
 
