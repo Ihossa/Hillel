@@ -4,142 +4,58 @@
 	<meta charset="UTF-8">
 	<title>lesson13</title>
 </head>
-<style>
-	table{
-		border:1px solid black;
-	}
-	td{
-		text-align: center;
-		padding: 1rem;
-		margin: 1rem;
-		border: 1px solid black;
-	}
-	input, select, button{
-		margin-bottom:1rem;
-	}
-</style>
 <body>
-	<div class="conventer">
-		<form name="conv">
-			<input type="radio" name="radio" id="buy"><label for="buy" checked>Buy</label>
-			<input type="radio" name="radio" id="sell"><label for="sell" checked>Sell</label>
-			<br>
-			<label for="from">from</label>
-			<select name="from">
-				<option value="USD">USD</option>
-				<option value="EUR">EUR</option>
-				<option value="UAH">UAH</option>
-			</select>
-			<label for="to">to</label>
-				<select name="to">
-				<option value="USD">USD</option>
-				<option value="EUR">EUR</option>
-				<option value="UAH">UAH</option>
-			</select>
-			<br>
-			Enter number: <input type="text" name="enterNum">
-			<br>
-			Result: <input type="text" name="result">	
-			<br>
-			<button type="submit" id="calc">calculate</button>
-
-		</form>
-	</div>
+	<canvas id="canvas"></canvas>
 
 	
 
 
 	<script>
 		"use strict"
-		const $table = document.createElement('table');
-		const alphavit = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','_','.'];
-		let iter = 0; 
+		let canvas = document.getElementById("canvas");
+		canvas.style.backgroundColor = "blue";
+		let ctx = canvas.getContext("2d");
+		
 
-		let elTable = '';
-		for(let i = 0; i < 7; i++){
-			elTable += '<tr>';
-			for(let j = 0; j < 4; j++){
-				elTable += `<td>${alphavit[iter++]}</td>`;
-			}
-			elTable += '</tr>';
+		function createCircle(x, y, radius){
+			ctx.fillStyle = "white";
+			ctx.beginPath();
+			ctx.arc(x, y, radius, Math.PI*2, false);
+			ctx.fill();
 		}
+		createCircle(150, 45, 15);
+		createCircle(150, 70, 20);
+		createCircle(150, 100, 25);
 
-		console.log(elTable);
-		$table.innerHTML = elTable;
-		document.body.append($table);
+		function createEyes(){
+		ctx.fillStyle = "black";
+		ctx.beginPath();
+		ctx.arc(145, 40, 2, Math.PI*2, false);
+		ctx.arc(155, 40, 2, Math.PI*2, false);
+		ctx.fill();
+	}
+	  createEyes();
+	  ctx.beginPath();
+		ctx.arc(150, 105, 2, Math.PI*2, false);
+		ctx.arc(150, 60, 2, Math.PI*2, false);
+		ctx.arc(150, 75, 2, Math.PI*2, false);
+		ctx.arc(150, 90, 2, Math.PI*2, false);
+      ctx.fill();
+
+		function createNous(){
+		ctx.strokeStyle = "orange";
+		ctx.beginPath();
+		ctx.moveTo(150, 45);
+		ctx.lineTo(160, 46);
+		ctx.lineTo(150, 47);
+
+		ctx.stroke();
+	}
+	createNous()
 
 
-		const $writeStr = document.createElement("div");
-		document.body.append($writeStr);
-		const $btnClear = document.createElement("button");
-		$btnClear.textContent = "Clear";
-		document.body.append($btnClear);
-		const $tableColls = document.querySelectorAll("td");
-
-
-		$tableColls.forEach(function(col){
-			col.addEventListener("click", function(){
-				$writeStr.textContent += this.textContent;
-				console.log($writeStr);
-			})
-		});
-		$btnClear.addEventListener("click", function(){
-			$writeStr.textContent = "";
-		})
-		//$writeStr.oninput = function() {
-		//	let $box = document.createElement('div');
-		//	$box.style.cssText = "width:10rem, height:10rem; border:1px solid black";
-		//	$box.textContent = $writeStr.textContent;
-		//	console.dir($box);
-		//	document.body.append = $box;
-//
-		//};
-		const $calc = document.querySelector("#calc");
-		const form = document.forms.conv;
-		let fromNum;
-		let toNum;
+		//ctx.fillRect(10, 10, 100, 100);
 		
-		
-		$calc.addEventListener('click', function(el) {
-			el.preventDefault();
-			let result = form.result.value;
-			let enterNum = form.enterNum.value;
-			if(form.radio[0].checked){
-				switch(form.from.value){
-					case 'USD': fromNum = 26; break;
-					case 'EUR': fromNum = 28; break;
-					case 'UAH': fromNum = 1; break;
-				}
-				switch(form.to.value){
-					case 'USD': toNum = 26; break;
-					case 'EUR': toNum = 28; break;
-					case 'UAH': toNum = 1; break;
-				}
-				//result = enterNum * (fromNum/toNum);
-				form.result.value= enterNum * (fromNum/toNum);
-				
-			}
-			if(form.radio[1].checked){
-				switch(form.from.value){
-					case 'USD': fromNum = 27; break;
-					case 'EUR': fromNum = 29; break;
-					case 'UAH': fromNum = 1; break;
-				}
-				switch(form.to.value){
-					case 'USD': toNum = 27; break;
-					case 'EUR': toNum = 29; break;
-					case 'UAH': toNum = 1; break;
-				}
-				//result = enterNum * (fromNum/toNum);
-				form.result.value= enterNum * (fromNum/toNum);
-				
-			}
-
-		})
-
-		
-		
-
 	</script>
 
 </body>
