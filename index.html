@@ -2,64 +2,106 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson14</title>
+	<title>lesson15</title>
 </head>
+<style>
+	.part {
+		width: 30%;
+		margin-bottom: 2rem;
+	}
+	.part .head{
+		font-size: 1rem;
+		line-height: 1.5rem;
+		font-style:italic ;
+		margin: 0;
+		text-align: center;
+		background-color: grey;
+		border: 1px solid white;
+	}
+	.part .cont{
+		background-color: lightgrey;
+		display: none;
+	}
+</style>
 <body>
-	<canvas id="canvas"></canvas>
-
 	
+	<div class="part">
+		<div class="head">header1
+			<div class = "cont">Content1</div>
+		</div>
 
-	<script src="three.js"></script>
-	<script src="OrbitControls.js"></script>
+		<div class="head">header2
+			<div class = "cont">Content2</div>
+		</div>
+
+		<div class="head">header3
+			<div class = "cont">Content3</div>
+		</div>
+
+		<div class="head">header4
+		<div class = "cont">Content4</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
 		"use strict"
-		console.log(THREE);
+		const $table = document.createElement("table");
+		const $writeInput = document.createElement("div");
+		$writeInput.className = "Input";
+		let contentTable = "";
+		for(let i = 0; i < 3; i++){
+			contentTable += "<tr>"
+			for(let j = 0; j < 3; j++){
+				contentTable += `<td>${Math.floor(Math.random() * (Math.floor(101) - Math.ceil(1)) + Math.ceil(1))}</td>`;
+			}
+			contentTable += "</tr>"
+		}
 
-		const scene = new THREE.Scene();
 
-		const fov = 70;
-		const aspectRatio = window.innerWidth/ window.innerHeight;
-		const near = 0.1;
-		const far = 1000;
+		$table.innerHTML = contentTable;
 
-		const camera = new THREE.PerspectiveCamera(fov, aspectRatio, near, far);
+		$table.style.cssText = "border:1px solid black";
+		document.body.append($table);
+		document.body.append($writeInput);
+
+		let $td = document.querySelectorAll("td")
+		$td.forEach(function(el){
+			el.style.cssText = "border: 1px solid black; padding:15px;";
+		})
 
 		
+		
+		document.querySelector("table").addEventListener("click", function(el){
+			if (el.target.tagName === 'TD') {
+				document.querySelector(".Input").textContent = el.target.textContent;
+			}
+			
+		})
 
-		const render = new THREE.WebGLRenderer();
-		render.setSize(window.innerWidth, window.innerHeight);
-		render.setClearColor("#ccc");
-		document.body.prepend(render.domElement);
-		const controls = new THREE.OrbitControls(camera, render.domElement)
 
-		const geometry = new THREE.ConeBufferGeometry( 1, 3, 5 );
-		const material = new THREE.MeshPhongMaterial({color: "#000080"});
-		const piramida = new THREE.Mesh(geometry, material);
+		$(".head").click(function(el) {
+			let content = el.target.firstElementChild;
 
-		scene.add(piramida);
-		controls.update();
+			if($(content).css('display') === "none"){
+				$(".cont").css({display:'none'});
+				$(content).css({display: "block"})
+			}
 
-		piramida.scale.set(5,5,5);
+			else if($(el.target.firstElementChild).css('display') === "block"){
+				$(el.target.firstElementChild).css({
+					display:'none'
+				})
+			}			
 
-		camera.position.z = 15;
+		})
 
-		const color = "#fff";
-		const invensity = 0.8;
-		const light = new THREE.DirectionalLight(color, invensity);
 
-		light.position.set(-1, 4, 4);
 
-		scene.add(light);
 
-		function animation(){
-			requestAnimationFrame(animation);
-			render.render( scene, camera );
-
-			piramida.rotation.x += 0.01;
-			piramida.rotation.y += 0.01;
-			controls.update(); 
-		}
-		animation()
 	</script>
 
 </body>
