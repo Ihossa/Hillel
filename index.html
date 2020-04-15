@@ -2,103 +2,90 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>lesson15</title>
+	<title>Document</title>
 </head>
-<style>
-	.part {
-		width: 30%;
-		margin-bottom: 2rem;
-	}
-	.part .head{
-		font-size: 1rem;
-		line-height: 1.5rem;
-		font-style:italic ;
-		margin: 0;
-		text-align: center;
-		background-color: grey;
-		border: 1px solid white;
-	}
-	.part .cont{
-		background-color: lightgrey;
-		display: none;
-	}
-</style>
 <body>
+	<style>
+		.squares div{
+			width:2rem;
+			height: 2rem;
+			border: 1px solid black;
+			margin-top: 1rem;
+		}
+		.blue{
+			background-color: blue;
+		}
+		.green{
+			background-color: green;
+		}
+		.yellow{
+			background-color: yellow;
+		}
+	</style>
+
+
+	<div class="box">
+	  <span>0</span>
+	  <button type="button" data-action="minus">-</button>
+	  <button type="button" data-action="plus">+</button>
+	</div>
+	<div class="box">
+	  <span>0</span>
+	  <button type="button" data-action="minus">-</button>
+	  <button type="button" data-action="plus">+</button>
+	</div>
+	<div class="box">
+	  <span>0</span>
+	  <button type="button" data-action="minus">-</button>
+	  <button type="button" data-action="plus">+</button>
+	</div>
+	<div class="box">
+	  <span>0</span>
+	  <button type="button" data-action="minus">-</button>
+	  <button type="button" data-action="plus">+</button>
+	</div>
 	
-	<div class="part">
-		<div class="head">header1
-			<div class = "cont">Content1</div>
-		</div>
 
-		<div class="head">header2
-			<div class = "cont">Content2</div>
-		</div>
 
-		<div class="head">header3
-			<div class = "cont">Content3</div>
-		</div>
-
-		<div class="head">header4
-		<div class = "cont">Content4</div>
-		</div>
+	<div class="squares">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
 	</div>
 
 
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
-		"use strict"
-		const $table = document.createElement("table");
-		const $writeInput = document.createElement("div");
-		$writeInput.className = "Input";
-		let contentTable = "";
-		for(let i = 0; i < 3; i++){
-			contentTable += "<tr>"
-			for(let j = 0; j < 3; j++){
-				contentTable += `<td>${Math.floor(Math.random() * (Math.floor(101) - Math.ceil(1)) + Math.ceil(1))}</td>`;
+		"use strick"
+
+		
+
+		$(".box").on("click", "button", function(el) {
+
+			if(this.textContent === "-"){
+				--(this.parentElement.children[0].textContent);
 			}
-			contentTable += "</tr>"
-		}
+			if(this.textContent === "+"){
+				++(this.parentElement.children[0].textContent);
+			}
+
+		});
 
 
-		$table.innerHTML = contentTable;
+// там есть футкция в тогл, не разобрался как работает но по идее она должна менять классы
+		$(".squares").on("click", "div", function(el){	
 
-		$table.style.cssText = "border:1px solid black";
-		document.body.append($table);
-		document.body.append($writeInput);
+			$(".squares").append(el.target)
 
-		let $td = document.querySelectorAll("td")
-		$td.forEach(function(el){
-			el.style.cssText = "border: 1px solid black; padding:15px;";
-		})
-
-		
-		
-		document.querySelector("table").addEventListener("click", function(el){
-			if (el.target.tagName === 'TD') {
-				document.querySelector(".Input").textContent = el.target.textContent;
+			switch(el.target.className){
+				case "":  $(el.target).toggleClass("blue");break;
+				case "blue":  $(el.target).toggleClass("blue green"); break;
+				case "green": $(el.target).toggleClass("green yellow"); break;
+				case "yellow": $(el.target).toggleClass("yellow"); break;
 			}
 			
 		})
-
-
-		$(".head").click(function(el) {
-			let content = el.target.firstElementChild;
-
-			if($(content).css('display') === "none"){
-				$(".cont").css({display:'none'});
-				$(content).css({display: "block"})
-			}
-
-			else if($(el.target.firstElementChild).css('display') === "block"){
-				$(el.target.firstElementChild).css({
-					display:'none'
-				})
-			}			
-
-		})
 	</script>
-
 </body>
 </html>
