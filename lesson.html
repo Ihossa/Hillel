@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson18</title>
+</head>
+<body>
+	<script>
+
+		"use strict"
+
+		const student = {
+
+			name: "Andrey"
+		}
+		
+		function getUserName(...arr){
+
+			let content = this.name
+			for (let arg of arr){
+				content += " " + arg; 
+			}
+			return content;
+		}
+
+		
+
+		function doBain(func, context, ...arr){
+
+			context.fUserName = func;
+			return context.fUserName(...arr) ;
+		}
+
+		console.log(doBain(getUserName, student, "лучший студент", "!"));
+
+
+		let arr = [9, 12, 24, 56, 34]
+
+		function map(arr){
+			let arr2 = []; //метод меп создаёт массив
+			for(let el of arr){ //для каждого элэмента вызывает футкцию
+				function sqrt(el){
+					arr2.push(Math.sqrt(el));
+				}
+				sqrt(el);
+			}
+
+			return arr2;// возвращает новый масив
+		}
+
+		console.log(map(arr));
+
+		
+	</script>
+</body>
+</html>
