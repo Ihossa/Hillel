@@ -36,19 +36,24 @@
 
 		let arr = [9, 12, 24, 56, 34]
 
-		function map(arr){
+		
+				
+
+		function map(arr, func){
 			let arr2 = []; //метод меп создаёт массив
+
 			for(let el of arr){ //для каждого элэмента вызывает футкцию
-				function sqrt(el){
-					arr2.push(Math.sqrt(el));
-				}
-				sqrt(el);
+				
+				arr2.push(func(el));
 			}
 
 			return arr2;// возвращает новый масив
 		}
 
-		console.log(map(arr));
+		let func = function(el){return Math.sqrt(el);}
+		console.log(func(3));
+
+		console.log(map(arr, func));
 
 		
 	</script>
