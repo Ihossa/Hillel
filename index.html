@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson19</title>
+</head>
+<body>
+	<script>
+		function getSaveSum(){
+
+			let saveSumm = 0;
+
+			return function(int){
+
+				return saveSumm+=int;
+			}
+		}
+
+		let SaveSum = getSaveSum();
+
+		console.log(SaveSum(5));
+		console.log(SaveSum(9));
+		console.log(SaveSum(8));
+
+		console.log("////////////////////////////////////////////////////////////////////////////////////////");
+
+
+
+
+
+		function createCounter(firstCount,interval){
+			let count = firstCount;
+			let interv = interval;
+
+
+			
+			return function(clear){
+				if(clear){
+					return count+=interval;
+				}
+				else{
+					count = firstCount;
+					return "очистка";
+					//или return count+=interval;
+				}
+			}
+		}
+
+		let counter = createCounter(2,5)
+
+		console.log(counter(true));
+		console.log(counter(true));
+		console.log(counter(true));
+		console.log(counter(false));
+		console.log(counter(true));
+		console.log(counter(true));
+
+		console.log("////////////////////////////////////////////////////////////////////////////////////////");
+
+
+
+
+		function createPalindrom(num){
+			let stringNum = String(num);
+			let reverseNum = Number(stringNum.split("").reverse().join(""))
+			
+
+
+
+			if(num === reverseNum){
+				return num + " есть числовым полиндромом";
+			}
+			console.log(num);
+			
+				
+			return createPalindrom(num+reverseNum);		
+
+		}
+
+
+
+		console.log(createPalindrom(17));
+
+
+
+
+
+	</script>
+</body>
+</html>
