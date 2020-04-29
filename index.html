@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>lesson18</title>
+	<title>lesson20</title>
 </head>
 <body>
 	<script>
@@ -43,16 +43,16 @@ console.log("///////////////////////////////////////////////////////////////////
 
 console.log("////////////////////////////////////////////////////////////////////////////////////////////////")
 
-		function getNumFib(n, firstCount = 0, secondNum = 1){
+		function getNumFib(n, firstCount = 0, secondCount = 1){
 
 			if(n !== 0){
-				let summ = firstCount + secondNum;
-				console.log(summ);
-				return getNumFib(--n, firstCount = secondNum, secondNum = summ)
+				let summ = firstCount + secondCount;
+				console.log(firstCount);
+				return getNumFib(--n, firstCount = secondCount, secondCount = summ)
 			}
 		}
 
-		getNumFib(5);
+		getNumFib(10);
 	</script>
 </body>
 </html>
