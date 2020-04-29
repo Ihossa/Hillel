@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>lesson18</title>
 </head>
 <body>
 	<script>
-		
+
 		"use strict"
-
-		const student = {
-
-			name: "Andrey"
-		}
-		
-		function getUserName(lastName, symbol){
-
-			return this.name + lastName + symbol;
-
-		}
-
-		
-
-		function doBain(func, context, ...arr){
-
-			return function(){
-				return func.apply(context,arr);
+		function fizzBuzz(n){
+			for (let i = 1; i <= n; i++){
+				if(i % 5 === 0 && i % 3 === 0 ){
+					console.log("fizzbuzz");
+				}
+				else if(i % 5 === 0){
+					console.log("buzz");
+				}
+				else if(i % 3 === 0){
+					console.log("fizz");
+				}
+				else{
+					console.log(i);
+				}
 			}
 		}
 
-		
-		console.log(doBain( getUserName, student, " лучший студент", "!")());
+		fizzBuzz(5);
 
-
-	
-
-
-
-		function map(arr, func)
-		{
-			let arr2 = []; //метод меп создаёт массив
-
-			for(let el of arr){ //для каждого элемента вызывает футкцию
-				
-				arr2.push(func(el));
-			}
-
-			return arr2; // возвращает новый масив
+console.log("////////////////////////////////////////////////////////////////////////////////////////////////")
+		function getCountWord(str) {
+			let counter = 0;
+			let arrStr = str.split("");
+			arrStr.forEach(function(el){
+				if(el === "a"||el === "e"||el === "i"||el === "o"||el === "u"){
+					counter++;
+				}
+			})
+			console.log(counter);
 		}
 
-		
+		getCountWord("Hallo world");
 
-		console.log(map([2, 5, 45, 34, 23], function(el){return Math.sqrt(el);}));
+console.log("////////////////////////////////////////////////////////////////////////////////////////////////")
+
+		function getNumFib(n, firstCount = 0, secondNum = 1){
+
+			if(n !== 0){
+				let summ = firstCount + secondNum;
+				console.log(summ);
+				return getNumFib(--n, firstCount = secondNum, secondNum = summ)
+			}
+		}
+
+		getNumFib(5);
 	</script>
 </body>
 </html>
