@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>lesson18</title>
+	<title>lesson20</title>
 </head>
 <body>
 	<script>
-		
+
 		"use strict"
+		const arr = [2, 45, 23, 23]
 
-		const student = {
-
-			name: "Andrey"
-		}
-		
-		function getUserName(lastName, symbol){
-
-			return this.name + lastName + symbol;
-
-		}
-
-		
-
-		function doBain(func, context, ...arr){
-
-			return function(){
-				return func.apply(context,arr);
-			}
-		}
-
-		
-		console.log(doBain( getUserName, student, " лучший студент", "!")());
-
-
-	
-
-
-
-		function map(arr, func)
+		function map(arr, func, thisArg)
 		{
 			let arr2 = []; //метод меп создаёт массив
 
-			for(let el of arr){ //для каждого элемента вызывает футкцию
+			for(let i = 0; i < arr.length; i++ ){ //для каждого элемента вызывает футкцию
 				
-				arr2.push(func(el));
+				arr2.push(func(arr[i], i));
 			}
 
 			return arr2; // возвращает новый масив
 		}
 
-		
+		const arrToSqrt = map(arr, function(el, i){
 
-		console.log(map([2, 5, 45, 34, 23], function(el){return Math.sqrt(el);}));
+			return{
+				index: i,
+				value: Math.sqrt(el)
+			};
+		});
+
+		console.log(arrToSqrt);
+
+
+
+
+		const getBind = function(func, cont){
+			const args =Array.prototype.slice.call(arguments, 2);
+			
+			return function(){
+				const addArgs = Array.prototype.slice.call(arguments);
+				return func.apply(cont, args.concat(addArgs))
+			}
+		}
+
+		function getBestStudent(phrase1, phrase2){
+			return `${this.nameStud} - ${phrase1} ${phrase2} `
+		}
+
+		let student = {
+			nameStud: "Andrey"
+		}
+
+
+		const bind = getBind(getBestStudent, student, "лучший")
+		console.log(bind("студент"));
+
 	</script>
 </body>
 </html>
