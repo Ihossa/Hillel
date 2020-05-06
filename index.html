@@ -2,59 +2,71 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>lesson20</title>
+	<title>lesson21</title>
 </head>
 <body>
+
+
+
 	<script>
 
 		"use strict"
-		const arr = [2, 45, 23, 23]
+		const $List = document.createElement("ul");
+		$List.addEventListener("click", function(el){
 
-		function map(arr, func, thisArg)
-		{
-			let arr2 = []; //метод меп создаёт массив
+			const $el = el.target;
 
-			for(let i = 0; i < arr.length; i++ ){ //для каждого элемента вызывает футкцию
-				
-				arr2.push(func(arr[i], i));
-			}
+			if($el.firstElementChild){$el.removeChild($el.firstElementChild);}
+			else{
+			const sublist = document.createElement("ul")
+			$el.append(sublist);
 
-			return arr2; // возвращает новый масив
-		}
-
-		const arrToSqrt = map(arr, function(el, i){
-
-			return{
-				index: i,
-				value: Math.sqrt(el)
-			};
-		});
-
-		console.log(arrToSqrt);
-
-
-
-
-		const getBind = function(func, cont){
-			const args =Array.prototype.slice.call(arguments, 2);
 			
-			return function(){
-				const addArgs = Array.prototype.slice.call(arguments);
-				return func.apply(cont, args.concat(addArgs))
+			if($el.tagName === "LI"){
+
+				getDataApi("https://swapi.dev/api/films/").then(function(films){
+					
+					films.results.map(function elList(list){
+
+						if(list.title === $el.textContent){
+							list.starships.forEach(function(el){
+
+								getDataApi(el).then(function(ship){
+									//console.log(ship.name);
+									sublist.innerHTML += `<li>${ship.name}</li>`
+									
+								})
+							})
+						}	
+					}) 
+				})
 			}
+			}
+		})
+		
+
+		getDataApi("https://swapi.dev/api/films/").then(function(films){
+
+			films.results.forEach(function elList(list){
+				//console.log(list);
+				$List.innerHTML += `<li>${list.title}</li>`;
+				document.body.prepend($List);
+			})
+
+		})
+
+
+		function getDataApi(adres){
+			 function getFilmApi(){
+				return fetch(adres);
+			}
+			return getFilmApi()
+			.then(function(resp){
+				return resp.json();
+			})			
 		}
-
-		function getBestStudent(phrase1, phrase2){
-			return `${this.nameStud} - ${phrase1} ${phrase2} `
-		}
-
-		let student = {
-			nameStud: "Andrey"
-		}
-
-
-		const bind = getBind(getBestStudent, student, "лучший")
-		console.log(bind("студент"));
+		
+		
 
 	</script>
 </body>
