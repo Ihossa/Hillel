@@ -2,71 +2,88 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>lesson21</title>
+	<title>lesson23</title>
 </head>
 <body>
 
 
 
 	<script>
-
 		"use strict"
-		const $List = document.createElement("ul");
-		$List.addEventListener("click", function(el){
+		function Student(name, surname, yearBirth,arrMark){
+			this.name= name;
+			this.surname= surname;
+			this.yearBirth= yearBirth;
+			this.arrMark= arrMark;
+			this.attend = [];
+			this.present = function(){
+				if(this.attend.length<25){this.attend.push("true");}
+				else{console.log("Масив посещений заполнен")}	
+			};
+			this.abent = function(){
+				if(this.attend.length<25){this.attend.push("false");}
+				else{console.log("Масив посещений заполнен")}	
+			};
 
-			const $el = el.target;
+			this.getMediumMark = function(){
+				let sumNum = 0;
+				this.arrMark.forEach(function(el){
+					sumNum += el;
+				})
+				return sumNum/(this.arrMark.length);
+			}
 
-			if($el.firstElementChild){$el.removeChild($el.firstElementChild);}
-			else{
-			const sublist = document.createElement("ul")
-			$el.append(sublist);
+			this.getYearOld = function(){
+				let Birth = new Date();
+				return Birth.getFullYear() - this.yearBirth;
+			}
+			this.summary = function(){
+				let present = 0;
+				let str = "";
+				this.attend.forEach(function(el){
+					if(el === "true"){
+						present++
+					}
+				})
+				let mediumAttend = present/(this.attend.length);
+				if(mediumAttend>0.9&& this.getMediumMark()>90){
+					str = "Ути какой молодчинка!"
+				}
+				else if(mediumAttend>0.9 || this.getMediumMark()>90){
+					str = "Норм, но можно лучше"
+				}
+				else{
+					str = "Редиска!"
+				}
+				return str;	
+
+			}
 
 			
-			if($el.tagName === "LI"){
 
-				getDataApi("https://swapi.dev/api/films/").then(function(films){
-					
-					films.results.map(function elList(list){
-
-						if(list.title === $el.textContent){
-							list.starships.forEach(function(el){
-
-								getDataApi(el).then(function(ship){
-									//console.log(ship.name);
-									sublist.innerHTML += `<li>${ship.name}</li>`
-									
-								})
-							})
-						}	
-					}) 
-				})
-			}
-			}
-		})
-		
-
-		getDataApi("https://swapi.dev/api/films/").then(function(films){
-
-			films.results.forEach(function elList(list){
-				//console.log(list);
-				$List.innerHTML += `<li>${list.title}</li>`;
-				document.body.prepend($List);
-			})
-
-		})
-
-
-		function getDataApi(adres){
-			 function getFilmApi(){
-				return fetch(adres);
-			}
-			return getFilmApi()
-			.then(function(resp){
-				return resp.json();
-			})			
 		}
+
+		let student1 = new Student("Ihor","Shymkov", 1999 , [100, 80, 70, 90, 100, 94, 97]);
 		
+		student1.present();
+		student1.present();
+		student1.abent();
+		student1.present();
+		student1.present();
+		student1.present();
+		student1.present();
+		student1.present();
+		student1.present();
+		student1.present();
+		student1.present();
+
+
 		
+		console.log(student1.getMediumMark());
+		console.log(student1.getYearOld());
+		console.log(student1.attend);
+		console.log(student1.summary());
+
 
 	</script>
 </body>
