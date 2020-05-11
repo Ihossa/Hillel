@@ -16,28 +16,29 @@
 			this.yearBirth= yearBirth;
 			this.arrMark= arrMark;
 			this.attend = [];
-			this.present = function(){
+
+		}
+
+		Student.prototype.present = function(){
 				if(this.attend.length<25){this.attend.push("true");}
 				else{console.log("Масив посещений заполнен")}	
 			};
-			this.abent = function(){
+		Student.prototype.abent = function(){
 				if(this.attend.length<25){this.attend.push("false");}
 				else{console.log("Масив посещений заполнен")}	
 			};
-
-			this.getMediumMark = function(){
+		Student.prototype.getMediumMark = function(){
 				let sumNum = 0;
 				this.arrMark.forEach(function(el){
 					sumNum += el;
 				})
 				return sumNum/(this.arrMark.length);
 			}
-
-			this.getYearOld = function(){
+		Student.prototype.getYearOld = function(){
 				let Birth = new Date();
 				return Birth.getFullYear() - this.yearBirth;
 			}
-			this.summary = function(){
+		Student.prototype.summary = function(){
 				let present = 0;
 				let str = "";
 				this.attend.forEach(function(el){
@@ -58,10 +59,6 @@
 				return str;	
 
 			}
-
-			
-
-		}
 
 		let student1 = new Student("Ihor","Shymkov", 1999 , [100, 80, 70, 90, 100, 94, 97]);
 		
