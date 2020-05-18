@@ -2,86 +2,96 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>lesson23</title>
+	<title>lesson25</title>
 </head>
 <body>
-
-
-
+	<style type="text/css">
+	form{
+		border: 1px solid black;
+		width:15rem;
+		padding: 10px;
+	}
+	#exersiceList {
+		width:15rem;
+		padding: 10px;
+		border: 1px solid black;
+		margin-top:5px;
+		min-height: 5rem;
+	}
+	#exersiceList div {
+		border: 1px solid black;
+		margin:1px;
+	}	
+	</style>
+	<form>
+		<label>Введите задание</label><br>
+		<input id="exersice" type="text" name="exersice">
+		<button id="add">Добавить</button>
+	</form>
+	<div id="exersiceList"></div>
 	<script>
 		"use strict"
-		function Student(name, surname, yearBirth,arrMark){
-			this.name= name;
-			this.surname= surname;
-			this.yearBirth= yearBirth;
-			this.arrMark= arrMark;
-			this.attend = [];
 
-		}
+		document.querySelector("form").addEventListener("submit", function(e) {
+			e.preventDefault();
+		printContent(JSON.parse(localStorage.listExSave))	
+			if(document.querySelector("#exersice").value === ""){alert("введите текст")}
+			else{
 
-		Student.prototype.present = function(){
-				if(this.attend.length<25){this.attend.push("true");}
-				else{console.log("Масив посещений заполнен")}	
-			};
-		Student.prototype.abent = function(){
-				if(this.attend.length<25){this.attend.push("false");}
-				else{console.log("Масив посещений заполнен")}	
-			};
-		Student.prototype.getMediumMark = function(){
-				let sumNum = 0;
-				this.arrMark.forEach(function(el){
-					sumNum += el;
+				const listEx = localStorage.listExSave ? JSON.parse(localStorage.listExSave) : [];
+				let context = document.querySelector("#exersice").value;
+				
+
+
+				listEx.push({
+					id:Date.now(),
+					value: context
 				})
-				return sumNum/(this.arrMark.length);
-			}
-		Student.prototype.getYearOld = function(){
-				let Birth = new Date();
-				return Birth.getFullYear() - this.yearBirth;
-			}
-		Student.prototype.summary = function(){
-				let present = 0;
-				let str = "";
-				this.attend.forEach(function(el){
-					if(el === "true"){
-						present++
+
+
+				localStorage.listExSave = JSON.stringify(listEx);
+				printContent(listEx);
+
+				e.target.reset();
+
+				
+			}				
+
+		})
+			document.querySelector('#exersiceList').addEventListener('click', function(e){
+				//
+				
+				if(e.target.classList[0] === "done"){
+					e.preventDefault();
+					if(e.target.previousElementSibling.style.textDecoration !== "line-through"){
+						e.target.previousElementSibling.style.textDecoration = "line-through";
+					}else{
+						e.target.previousElementSibling.style.textDecoration = "none";
 					}
+				}
+				else if(e.target.classList[0] === "del"){
+					e.preventDefault();
+					//console.log(e.target.parentElement.children[0].textContent);
+					for(let i = 0; i < JSON.parse(localStorage.listExSave).length; i++){
+						if(JSON.parse(localStorage.listExSave)[i].id == e.target.parentElement.children[0].textContent){
+							let arr = JSON.parse(localStorage.listExSave);
+							arr.splice(i,1)
+							localStorage.listExSave = JSON.stringify(arr);
+							e.target.parentElement.style.display = "none";
+						}
+					};
+				}	
+			})
+		function printContent(list){
+				document.querySelector("#exersiceList").textContent = "";
+				list.forEach(function(el){
+				let ex = document.createElement("div");
+				ex.innerHTML = `<p hidden>${el.id}</p><p>${el.value}</p><button class = "done">+</button><button class = "del">-</button>`;
+				document.querySelector("#exersiceList").append(ex);	
+				
 				})
-				let mediumAttend = present/(this.attend.length);
-				if(mediumAttend>0.9&& this.getMediumMark()>90){
-					str = "Ути какой молодчинка!"
-				}
-				else if(mediumAttend>0.9 || this.getMediumMark()>90){
-					str = "Норм, но можно лучше"
-				}
-				else{
-					str = "Редиска!"
-				}
-				return str;	
 
 			}
-
-		let student1 = new Student("Ihor","Shymkov", 1999 , [100, 80, 70, 90, 100, 94, 97]);
-		
-		student1.present();
-		student1.present();
-		student1.abent();
-		student1.present();
-		student1.present();
-		student1.present();
-		student1.present();
-		student1.present();
-		student1.present();
-		student1.present();
-		student1.present();
-
-
-		
-		console.log(student1.getMediumMark());
-		console.log(student1.getYearOld());
-		console.log(student1.attend);
-		console.log(student1.summary());
-
-
 	</script>
 </body>
 </html>
