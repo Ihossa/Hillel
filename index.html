@@ -45,7 +45,8 @@
 
 				listEx.push({
 					id:Date.now(),
-					value: context
+					value: context,
+					done:"false"
 				})
 
 
@@ -63,11 +64,21 @@
 				
 				if(e.target.classList[0] === "done"){
 					e.preventDefault();
-					if(e.target.previousElementSibling.style.textDecoration !== "line-through"){
-						e.target.previousElementSibling.style.textDecoration = "line-through";
-					}else{
-						e.target.previousElementSibling.style.textDecoration = "none";
-					}
+					for(let i = 0; i < JSON.parse(localStorage.listExSave).length; i++){
+						if(JSON.parse(localStorage.listExSave)[i].id == e.target.parentElement.children[0].textContent){
+							let arr = JSON.parse(localStorage.listExSave);
+							if(arr[i].done === false){
+								arr[i].done = true;
+
+								e.target.previousElementSibling.style.textDecoration = "line-through";
+							}else{
+								arr[i].done = false;
+								e.target.previousElementSibling.style.textDecoration = "none";
+							}
+							localStorage.listExSave = JSON.stringify(arr);
+							
+						}
+					};
 				}
 				else if(e.target.classList[0] === "del"){
 					e.preventDefault();
@@ -86,12 +97,19 @@
 				document.querySelector("#exersiceList").textContent = "";
 				list.forEach(function(el){
 				let ex = document.createElement("div");
-				ex.innerHTML = `<p hidden>${el.id}</p><p>${el.value}</p><button class = "done">+</button><button class = "del">-</button>`;
-				document.querySelector("#exersiceList").append(ex);	
+				if(el.done === true){
+					ex.innerHTML = `<p hidden>${el.id}</p><p style = "text-decoration:line-through;">${el.value}</p><button class = "done">+</button><button class = "del">-</button>`;
+					document.querySelector("#exersiceList").append(ex);
+				}else{
+					ex.innerHTML = `<p hidden>${el.id}</p><p>${el.value}</p><button class = "done">+</button><button class = "del">-</button>`;
+					document.querySelector("#exersiceList").append(ex);
+				}
+					
 				
 				})
+				}
 
-			}
+			
 	</script>
 </body>
 </html>
