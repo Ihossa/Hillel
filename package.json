@@ -2,7 +2,7 @@
   "name": "hillel",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,22 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/Ihossa/Hillel.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Ihossa/Hillel/issues"
   },
   "homepage": "https://github.com/Ihossa/Hillel#readme",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "js-base64": "^2.5.2"
+  },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.7",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-less": "^4.0.1"
+    "gulp": "^4.0.2"
   }
 }
